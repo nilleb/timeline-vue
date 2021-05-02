@@ -1,5 +1,5 @@
 {
-  "name": "timeline-vue",
+  "name": "@nilleb/timeline-vue",
   "version": "1.0.0",
   "description": "",
   "main": "dist/timeline-vue.ssr.js",

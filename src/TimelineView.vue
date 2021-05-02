@@ -420,7 +420,6 @@ export default {
 .scheduler-container .resources .resource-row {
   top: 20px;
   margin-bottom: 10px;
-  /*border-top: 1px #896bda solid;*/
   color: #7957d5;
   box-shadow: 0 0 0.125em;
   position: relative;
