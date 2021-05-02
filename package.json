@@ -1,7 +1,11 @@
 {
   "name": "@nilleb/timeline-vue",
   "version": "1.0.1",
-  "description": "",
+  "description": "Timeline-Vue is a capacity planner component for VueJS",
+  "license" : "MIT",
+  "keywords": ["capacity plan", "timeline", "horizontal timeline", "resource allocation"],
+  "author": "Ivo Bellin Salarin <ivo@nilleb.com> (https://nilleb.com/)",
+  "homepage": "https://github.com/nilleb/timeline-vue#readme",
   "main": "dist/timeline-vue.ssr.js",
   "browser": "dist/timeline-vue.esm.js",
   "module": "dist/timeline-vue.esm.js",
