@@ -1,0 +1,91 @@
+[
+    {
+        "endDate": "Fri, 23 Apr 2021 00:00:00 GMT",
+        "id": "145f521d-0f65-4f20-a7d1-028d103a232e",
+        "startDate": "Mon, 22 Feb 2021 00:00:00 GMT",
+        "name": "🔐 Improve Security",
+        "members": [
+            "Peter",
+            "Lionel",
+            "Julia"
+        ]
+    },
+    {
+        "endDate": "Fri, 14 May 2021 00:00:00 GMT",
+        "id": "c948f225-49b0-4d8b-b46c-e8d2fa78028f",
+        "startDate": "Mon, 10 May 2021 00:00:00 GMT",
+        "name": "🧽 [Tech] Cleanup module",
+        "members": [
+            "Ivo",
+            "Julia"
+        ]
+    },
+    {
+        "endDate": "Mon, 17 May 2021 00:00:00 GMT",
+        "startDate": "Mon, 15 Feb 2021 00:00:00 GMT",
+        "name": "👥 Feature 1",
+        "members": [
+            "Jane",
+            "Klement",
+            "Lionel"
+        ]
+    },
+    {
+        "endDate": "Fri, 30 Apr 2021 00:00:00 GMT",
+        "startDate": "Tue, 09 Mar 2021 00:00:00 GMT",
+        "name": "🏙️ [Tech] Prevent Downtimes",
+        "members": [
+            "Peter",
+            "Thomas"
+        ]
+    },
+    {
+        "endDate": "Thu, 20 May 2021 00:00:00 GMT",
+        "id": "e0f72543-9d1b-4c2b-9c93-3b60fee66eae",
+        "startDate": "Mon, 12 Apr 2021 00:00:00 GMT",
+        "name": "⚙️ Improve Auth",
+        "members": [
+            "Thomas",
+            "Julia"
+        ]
+    },
+    {
+        "endDate": "Sun, 23 May 2021 00:00:00 GMT",
+        "id": "ca53c52e-34c2-44ad-bcd9-b6f91bb51d9e",
+        "startDate": "Thu, 22 Apr 2021 00:00:00 GMT",
+        "name": "🧹 [Tech] Cleanup",
+        "members": [
+            "Klement",
+            "Ivo",
+            "Julia"
+        ]
+    },
+    {
+        "endDate": "Mon, 07 Jun 2021 00:00:00 GMT",
+        "id": "37086aa7-a9b4-4d3d-995e-d2e13200f4d3",
+        "startDate": "Sat, 01 May 2021 00:00:00 GMT",
+        "name": "✈️ [Tech] Scalability",
+        "members": [
+            "Jane",
+            "Thomas"
+        ]
+    },
+    {
+        "endDate": "Fri, 18 Jun 2021 00:00:00 GMT",
+        "id": "cad5f1de-5da5-4fdb-afc4-ea9fd15259d5",
+        "startDate": "Mon, 07 Jun 2021 00:00:00 GMT",
+        "name": "🛤️ [Tech] Migrate to new Framework ",
+        "members": [
+            "Sebastian"
+        ]
+    },
+    {
+        "endDate": "Mon, 24 May 2021 00:00:00 GMT",
+        "id": "88d1e0d7-fd9d-4765-a0ed-85cffa020560",
+        "startDate": "Mon, 10 May 2021 00:00:00 GMT",
+        "name": "💉 Prevent spammers",
+        "members": [
+            "non assigned"
+        ]
+    }
+]
