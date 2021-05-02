@@ -1,6 +1,6 @@
 
 // Import vue component
-import component from '@/timeline-vue.vue';
+import component from '@/TimelineView.vue';
 
 // Default export is installable instance of component.
 // IIFE injects install function into component, allowing component
