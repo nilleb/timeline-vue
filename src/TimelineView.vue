@@ -66,9 +66,6 @@ var weekday = require("dayjs/plugin/weekday");
 dayjs.extend(weekday);
 var quarterOfYear = require("dayjs/plugin/quarterOfYear");
 dayjs.extend(quarterOfYear);
-// FIXME: set the right locale according to the user prefs
-require("dayjs/locale/fr");
-dayjs.locale("fr");
 
 function isIterable(obj) {
   if (obj == null) {
@@ -124,7 +121,7 @@ export default {
       } else {
         this.selectedSlots.push(slotId);
       }
-      this.setToLocalStorage('selectedSlots', this.selectedSlots);
+      this.setToLocalStorage("selectedSlots", this.selectedSlots);
     },
     slotsCount() {
       if (this.periodName === "quarter") {
@@ -354,7 +351,7 @@ export default {
     },
   },
   mounted() {
-    this.selectedSlots = this.retrieveFromLocalStorage('selectedSlots') || [];
+    this.selectedSlots = this.retrieveFromLocalStorage("selectedSlots") || [];
     this.timelineSlotWidth = 100;
     this.nowMarkerPosition = this.computeNowMarkerPosition();
   },
