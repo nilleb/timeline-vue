@@ -125,7 +125,7 @@ export default {
     },
     slotsCount() {
       if (this.periodName === "quarter") {
-        return 14;
+        return this.endOfPeriod.week() - this.beginningOfPeriod.week();
       } else if (this.periodName === "week") {
         return 7;
       }
@@ -218,10 +218,9 @@ export default {
       const fixedMarginLeft = (this.attributeName ? 1 : 0) * this.timelineSlotWidth;
       if (period == "quarter") {
         const workDate = this.limit(evaluatedDate);
-        const slotsCount = this.slotsCount();
         return (
           fixedMarginLeft +
-          ((workDate.week() - this.beginningOfPeriod.week()) % slotsCount) * this.timelineSlotWidth +
+          (workDate.week() - this.beginningOfPeriod.week()) * this.timelineSlotWidth +
           (workDate.weekday() * this.timelineSlotWidth) / 7
         );
       } else if (period == "week") {
@@ -243,6 +242,9 @@ export default {
     },
     followingMonday(day) {
       return day.add(7 - day.day() + 1, "day");
+    },
+    followingSunday(day) {
+      return day.add(0 - day.day() + 1, "day");
     },
     setToLocalStorage(key, item) {
       localStorage.setItem(key, JSON.stringify(item));
@@ -282,7 +284,7 @@ export default {
     endOfPeriod: function () {
       let now = dayjs();
       if (this.periodName === "quarter") {
-        now = now.endOf("quarter");
+        now = this.followingSunday(now.endOf("quarter"));
       } else if (this.periodName === "week") {
         now = now.endOf("week");
       } else {
