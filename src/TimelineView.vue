@@ -213,24 +213,26 @@ export default {
       return instant;
     },
     computePosition(date) {
-      const evaluatedDate = date !== undefined ? dayjs(date) : dayjs();
+      const evaluatedDate = dayjs(date);
       const period = this.periodName;
+      const fixedMarginLeft = (this.attributeName ? 1 : 0) * this.timelineSlotWidth;
       if (period == "quarter") {
-        const date = this.limit(evaluatedDate);
+        const workDate = this.limit(evaluatedDate);
+        const slotsCount = this.slotsCount();
         return (
-          (this.attributeName ? 1 : 0) * this.timelineSlotWidth +
-          (date.week() % this.slotsCount()) * this.timelineSlotWidth +
-          (date.weekday() * this.timelineSlotWidth) / 7
+          fixedMarginLeft +
+          ((workDate.week() - this.beginningOfPeriod.week()) % slotsCount) * this.timelineSlotWidth +
+          (workDate.weekday() * this.timelineSlotWidth) / 7
         );
       } else if (period == "week") {
         return (
-          (this.attributeName ? 1 : 0) * this.timelineSlotWidth +
+          fixedMarginLeft +
           evaluatedDate.day() * this.timelineSlotWidth +
           (evaluatedDate.hour() * this.timelineSlotWidth) / 60
         );
       } else if (period == "day") {
         return (
-          (this.attributeName ? 1 : 0) * this.timelineSlotWidth +
+          fixedMarginLeft +
           evaluatedDate.hour() * this.timelineSlotWidth +
           (evaluatedDate.minute() * this.timelineSlotWidth) / 60
         );
