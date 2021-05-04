@@ -1,5 +1,14 @@
 <template>
   <div class="vue-scheduler">
+    <h3 class="header">
+      <span class="date">{{ getSelectedDate }}</span>
+      <span class="nav" icon="chevron-left" @click="onSelectPrevPeriod"
+        >&lt;</span
+      >
+      <span class="nav" icon="chevron-right" @click="onSelectNextPeriod"
+        >&gt;</span
+      >
+    </h3>
     <div class="scheduler-container">
       <div
         class="timeline"
@@ -110,9 +119,16 @@ export default {
       timelineSlotWidth: 100,
       nowMarkerPosition: 0,
       selectedSlots: [],
+      selectedDate: null,
     };
   },
   methods: {
+    onSelectNextPeriod() {
+      console.log(this.selectedDate, "next");
+    },
+    onSelectPrevPeriod() {
+      console.log(this.selectedDate, "prev");
+    },
     onSelectSlot(slotId) {
       console.log("select slot ", slotId, this.selectedSlots);
       const index = this.selectedSlots.indexOf(slotId);
@@ -272,6 +288,14 @@ export default {
     },
   },
   computed: {
+    getSelectedDate() {
+      const evaluatedDate = dayjs(this.selectedDate);
+      if (this.periodName == "day") {
+        return dayjs(evaluatedDate).format("MMM DD, YYYY");
+      } else if (this.periodName == "quarter") {
+        return `Q${evaluatedDate.quarter()} ${evaluatedDate.format("YYYY")}`;
+      }
+    },
     periodName: function () {
       return this.period.toLowerCase();
     },
@@ -367,6 +391,7 @@ export default {
     },
   },
   mounted() {
+    this.selectedDate = this.beginningOfPeriod;
     this.selectedSlots = this.retrieveFromLocalStorage("selectedSlots") || [];
     this.timelineSlotWidth = 100;
     this.nowMarkerPosition = this.computeNowMarkerPosition();
