@@ -400,6 +400,28 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  margin: 0 0 10px;
+  color: #555;
+}
+.header .date {
+  margin-right: 16px;
+  color: #555;
+  font-weight: 900;
+  font-size: 18px;
+}
+.header .nav {
+  font-size: 16px;
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 1px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #efefef;
+  color: #555;
+  margin-right: 5px;
+  border-radius: 5px;
+}
 .scheduler-container {
   width: 100%;
   border: 1px solid #ccc;
