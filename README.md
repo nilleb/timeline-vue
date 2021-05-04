@@ -56,3 +56,7 @@ To build the minified version of the package.
 ```sh
 yarn build
 ```
+
+## Credits
+
+This should be considered a derived work of [Vue Day Schedule](https://github.com/craigdanj/vue-day-schedule) by [Craig Johnson](https://github.com/craigdanj).
