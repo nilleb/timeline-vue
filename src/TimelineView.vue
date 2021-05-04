@@ -171,15 +171,25 @@ export default {
         r[element].lines.push({ events: [event] });
       }
     },
+    happensThisPeriod(event) {
+      const truth = !(
+        dayjs(event.startDate) > this.endOfPeriod ||
+        dayjs(event.endDate) < this.beginningOfPeriod
+      );
+      console.log(event.startDate, event.endDate, truth);
+      return truth;
+    },
     computeEventGrid(events, attributeName) {
       const that = this;
       if (events === undefined) return [];
-      return events.reduce(function (r, a) {
+      return events.filter(this.happensThisPeriod).reduce(function (r, a) {
         let value = a[attributeName];
 
         if (isIterable(value) && typeof value !== "string") {
           if (value.length == 0) {
-            console.log(`⚠️ the item ${a.name} has no value`);
+            console.log(
+              `⚠️ the item ${a.name} has no value for the attribute ${attributeName}`
+            );
             value.push("non assigned");
           }
         } else {
@@ -215,12 +225,14 @@ export default {
     computePosition(date) {
       const evaluatedDate = dayjs(date);
       const period = this.periodName;
-      const fixedMarginLeft = (this.attributeName ? 1 : 0) * this.timelineSlotWidth;
+      const fixedMarginLeft =
+        (this.attributeName ? 1 : 0) * this.timelineSlotWidth;
       if (period == "quarter") {
         const workDate = this.limit(evaluatedDate);
         return (
           fixedMarginLeft +
-          (workDate.week() - this.beginningOfPeriod.week()) * this.timelineSlotWidth +
+          (workDate.week() - this.beginningOfPeriod.week()) *
+            this.timelineSlotWidth +
           (workDate.weekday() * this.timelineSlotWidth) / 7
         );
       } else if (period == "week") {
