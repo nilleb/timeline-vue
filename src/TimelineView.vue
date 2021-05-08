@@ -42,7 +42,7 @@
             :key="event.id"
             :style="{ left: event.position + 'px', width: event.width + 'px' }"
             :title="getEventTooltip(event)"
-            @mousedown="attachDrag(`event-cell-${i}-${event.id}`, event.id, $event)"
+            @mousedown="attachDrag(event.id, $event)"
           >
             {{ `${event.name}` }}
           </div>
@@ -114,31 +114,25 @@ export default {
     };
   },
   methods: {
-    attachDrag(divId, eventId, event) {
-      console.log(event, eventId);
+    attachDrag(eventId, event) {
       event.preventDefault();
-      document.onmouseup = this.detachDrag(event.clientX, eventId);
-      document.onmousemove = this.dragElement(event.clientX, divId);
+      document.onmouseup = this.detachDrag;
+      document.onmousemove = this.dragElement(event.clientX, eventId);
     },
-    dragElement(initialX, divId) {
-      const elem = document.getElementById(divId);
-      console.log(elem);
-      const elemInitialX = Number(elem.style.left.replace(/px$/, ''));
+    dragElement(initialX, eventId) {
+      const event = this.events.find((event) => event.id == eventId);
+      const eventStartDate = dayjs(event.startDate);
+      const eventEndDate = dayjs(event.endDate);
       const dragTo = function (moveEvent) {
-        elem.style.left = `${elemInitialX + moveEvent.clientX - initialX}px`;
+        const gap = moveEvent.clientX - initialX;
+        event.startDate = eventStartDate.add(gap / 100, "week");
+        event.endDate = eventEndDate.add(gap / 100, "week");
       };
       return dragTo;
     },
-    detachDrag(initialX, id) {
-      const event = this.events.find((event) => event.id == id);
-      console.log(event);
-      return function (mouseUpEvent) {
-        const gap = mouseUpEvent.clientX - initialX;
-        event.startDate = dayjs(event.startDate).add(gap / 100, "week");
-        event.endDate = dayjs(event.endDate).add(gap / 100, "week");
+    detachDrag() {
         document.onmouseup = null;
         document.onmousemove = null;
-      };
     },
     onSelectSlot(slotId) {
       console.log("select slot ", slotId, this.selectedSlots);
