@@ -123,10 +123,11 @@ export default {
       const event = this.events.find((event) => event.id == eventId);
       const eventStartDate = dayjs(event.startDate);
       const eventEndDate = dayjs(event.endDate);
+      const that = this;
       const dragTo = function (moveEvent) {
         const gap = moveEvent.clientX - initialX;
-        event.startDate = eventStartDate.add(gap / 100, "week");
-        event.endDate = eventEndDate.add(gap / 100, "week");
+        event.startDate = eventStartDate.add(gap / that.timelineSlotWidth, that.localUnit.toLowerCase());
+        event.endDate = eventEndDate.add(gap / that.timelineSlotWidth, that.localUnit.toLowerCase());
       };
       return dragTo;
     },
