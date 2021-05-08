@@ -42,6 +42,7 @@
             :key="event.id"
             :style="{ left: event.position + 'px', width: event.width + 'px' }"
             :title="getEventTooltip(event)"
+            @mousedown="attachDrag(`event-cell-${i}-${event.id}`, event.id, $event)"
           >
             {{ `${event.name}` }}
           </div>
@@ -113,6 +114,32 @@ export default {
     };
   },
   methods: {
+    attachDrag(divId, eventId, event) {
+      console.log(event, eventId);
+      event.preventDefault();
+      document.onmouseup = this.detachDrag(event.clientX, eventId);
+      document.onmousemove = this.dragElement(event.clientX, divId);
+    },
+    dragElement(initialX, divId) {
+      const elem = document.getElementById(divId);
+      console.log(elem);
+      const elemInitialX = Number(elem.style.left.replace(/px$/, ''));
+      const dragTo = function (moveEvent) {
+        elem.style.left = `${elemInitialX + moveEvent.clientX - initialX}px`;
+      };
+      return dragTo;
+    },
+    detachDrag(initialX, id) {
+      const event = this.events.find((event) => event.id == id);
+      console.log(event);
+      return function (mouseUpEvent) {
+        const gap = mouseUpEvent.clientX - initialX;
+        event.startDate = dayjs(event.startDate).add(gap / 100, "week");
+        event.endDate = dayjs(event.endDate).add(gap / 100, "week");
+        document.onmouseup = null;
+        document.onmousemove = null;
+      };
+    },
     onSelectSlot(slotId) {
       console.log("select slot ", slotId, this.selectedSlots);
       const index = this.selectedSlots.indexOf(slotId);
@@ -215,7 +242,8 @@ export default {
     computePosition(date) {
       const evaluatedDate = dayjs(date);
       const period = this.periodName;
-      const fixedMarginLeft = (this.attributeName ? 1 : 0) * this.timelineSlotWidth;
+      const fixedMarginLeft =
+        (this.attributeName ? 1 : 0) * this.timelineSlotWidth;
       if (period == "quarter") {
         const workDate = this.limit(evaluatedDate);
         return (
@@ -445,6 +473,7 @@ export default {
 }
 
 .scheduler-container .events .event {
+  cursor: move;
   position: absolute;
   top: 0px;
   width: 100px;
