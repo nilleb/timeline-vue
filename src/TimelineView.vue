@@ -131,8 +131,8 @@ export default {
       return dragTo;
     },
     detachDrag() {
-        document.onmouseup = null;
-        document.onmousemove = null;
+      document.onmouseup = null;
+      document.onmousemove = null;
     },
     onSelectSlot(slotId) {
       console.log("select slot ", slotId, this.selectedSlots);
@@ -169,7 +169,6 @@ export default {
         const os = dayjs(other.startDate);
         const oe = dayjs(other.endDate);
         if (!(ee < os || oe < es)) {
-          console.log(`${event.name} overlaps ${other.name}`);
           return other;
         }
       }
