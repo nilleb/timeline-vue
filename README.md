@@ -5,6 +5,7 @@ Focusing on a single quarter, week or day.
 With swimlanes, one for every resource of your team.
 With the possibility to select a single item.
 With the possibility to highlight a timeline slot (week, day or hour).
+With integrated drag & drop (alters the event startDate and endDate accordingly).
 Builds upon a simple list of items, with four simple properties.
 
 ![Component Screenshot](data/screenshot.png)
