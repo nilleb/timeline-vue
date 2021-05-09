@@ -44,8 +44,6 @@
             :style="{
               left: event.position + 'px',
               width: event.width + 'px',
-              cursor: 'ew-resize',
-              backgroundColor: 'lightgray',
             }"
             @mousedown="attachDrag(event, $event)"
           >
@@ -512,11 +510,11 @@ export default {
 }
 
 .scheduler-container .events .event {
-  cursor: move;
+  cursor: ew-resize;
+  background-color: lightgray;
   position: absolute;
   top: 0px;
   height: 36px;
-  background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
