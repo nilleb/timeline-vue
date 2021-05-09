@@ -36,15 +36,32 @@
       <div class="events">
         <div class="event-row" v-for="(eventRow, i) in eventLines" :key="i">
           <div
-            :id="`event-cell-${i}-${event.id}`"
-            :class="`event ${selected === event.id ? 'selected' : ''}`"
+            :id="`event-container-${i}-${event.id}`"
             v-for="event in eventRow"
             :key="event.id"
-            :style="{ left: event.position + 'px', width: event.width + 'px' }"
             :title="getEventTooltip(event)"
-            @mousedown="attachDrag(event.id, $event)"
+            :class="`event ${selected === event.id ? 'selected' : ''}`"
+            :style="{
+              left: event.position + 'px',
+              width: event.width + 'px',
+              cursor: 'ew-resize',
+              backgroundColor: 'lightgray',
+            }"
+            @mousedown="attachDrag(event, $event)"
           >
-            {{ `${event.name}` }}
+            <div
+              :id="`event-cell-${i}-${event.id}`"
+              :title="getEventTooltip(event)"
+              :style="{
+                width: '100%',
+                cursor: 'move',
+                backgroundColor: 'white',
+                paddingTop: '8px',
+                paddingBottom: '8px',
+              }"
+            >
+              {{ `${event.name}` }}
+            </div>
           </div>
         </div>
       </div>
@@ -114,26 +131,44 @@ export default {
     };
   },
   methods: {
-    attachDrag(eventId, event) {
-      event.preventDefault();
-      document.onmouseup = this.detachDrag(eventId);
-      document.onmousemove = this.dragElement(event.clientX, eventId);
+    attachDrag(eventObject, mouseDownEvent) {
+      mouseDownEvent.preventDefault();
+      document.onmouseup = this.detachDrag(eventObject.id);
+      document.onmousemove = this.dragElement(
+        mouseDownEvent.clientX,
+        eventObject
+      );
     },
-    dragElement(initialX, eventId) {
-      const event = this.events.find((event) => event.id == eventId);
+    dragElement(initialX, eventObject) {
+      const event = this.events.find((event) => event.id == eventObject.id);
       const eventStartDate = dayjs(event.startDate);
       const eventEndDate = dayjs(event.endDate);
+      const leftBorderDistance = Math.abs(initialX - eventObject.position);
+      const rightBorderDistance = Math.abs(
+        leftBorderDistance - eventObject.width
+      );
+      const what =
+        leftBorderDistance < 16
+          ? "left"
+          : rightBorderDistance < 8
+          ? "right"
+          : "both";
+      console.log(leftBorderDistance, rightBorderDistance, what);
       const that = this;
       const dragTo = function (moveEvent) {
         const gap = moveEvent.clientX - initialX;
-        event.startDate = eventStartDate.add(
-          gap / that.timelineSlotWidth,
-          that.localUnit.toLowerCase()
-        );
-        event.endDate = eventEndDate.add(
-          gap / that.timelineSlotWidth,
-          that.localUnit.toLowerCase()
-        );
+        if (what === "left" || what === "both") {
+          event.startDate = eventStartDate.add(
+            gap / that.timelineSlotWidth,
+            that.localUnit.toLowerCase()
+          );
+        }
+        if (what === "right" || what === "both") {
+          event.endDate = eventEndDate.add(
+            gap / that.timelineSlotWidth,
+            that.localUnit.toLowerCase()
+          );
+        }
       };
       return dragTo;
     },
@@ -481,13 +516,14 @@ export default {
   cursor: move;
   position: absolute;
   top: 0px;
-  width: 100px;
   height: 36px;
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
   box-sizing: border-box;
-  padding: 8px;
+  padding: 0px 8px;
+  display: flex;
+  justify-content: center;
   font-size: 12px;
   box-shadow: 2px 2px 5px #ddd;
   overflow: hidden;
