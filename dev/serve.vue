@@ -48,6 +48,9 @@ export default Vue.extend({
 
 <template>
   <div id="app">
+    <ul>
+      <li v-for="event in events" :key="event.id">{{ event.name }} - {{ event.startDate }} - {{ event.endDate }}</li>
+    </ul>
     <h1>Timeline view (per developer)</h1>
     <timeline-vue
       :period="'Quarter'"

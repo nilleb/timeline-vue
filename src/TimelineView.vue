@@ -116,7 +116,7 @@ export default {
   methods: {
     attachDrag(eventId, event) {
       event.preventDefault();
-      document.onmouseup = this.detachDrag;
+      document.onmouseup = this.detachDrag(eventId);
       document.onmousemove = this.dragElement(event.clientX, eventId);
     },
     dragElement(initialX, eventId) {
@@ -126,14 +126,25 @@ export default {
       const that = this;
       const dragTo = function (moveEvent) {
         const gap = moveEvent.clientX - initialX;
-        event.startDate = eventStartDate.add(gap / that.timelineSlotWidth, that.localUnit.toLowerCase());
-        event.endDate = eventEndDate.add(gap / that.timelineSlotWidth, that.localUnit.toLowerCase());
+        event.startDate = eventStartDate.add(
+          gap / that.timelineSlotWidth,
+          that.localUnit.toLowerCase()
+        );
+        event.endDate = eventEndDate.add(
+          gap / that.timelineSlotWidth,
+          that.localUnit.toLowerCase()
+        );
       };
       return dragTo;
     },
-    detachDrag() {
-      document.onmouseup = null;
-      document.onmousemove = null;
+    detachDrag(eventId) {
+      const that = this;
+      return function () {
+        const event = that.events.find((event) => event.id == eventId);
+        that.$emit("eventChanged", event);
+        document.onmouseup = null;
+        document.onmousemove = null;
+      };
     },
     onSelectSlot(slotId) {
       console.log("select slot ", slotId, this.selectedSlots);
