@@ -506,6 +506,14 @@ export default {
 .scheduler-container .events .event {
   cursor: ew-resize;
   background-color: lightgray;
+  opacity: 0.8;
+  background-image: linear-gradient(135deg, #c7c9f1 25%, transparent 25%),
+    linear-gradient(225deg, #c7c9f1 25%, transparent 25%),
+    linear-gradient(45deg, #c7c9f1 25%, transparent 25%),
+    linear-gradient(315deg, #c7c9f1 25%, #e5e5f7 25%);
+  background-position: 4px 0, 4px 0, 0 0, 0 0;
+  background-size: 4px 4px;
+  background-repeat: repeat;
   position: absolute;
   top: 0px;
   height: 36px;
