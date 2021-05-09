@@ -40,7 +40,7 @@
             v-for="event in eventRow"
             :key="event.id"
             :title="getEventTooltip(event)"
-            :class="`event ${selected === event.id ? 'selected' : ''}`"
+            class="event"
             :style="{
               left: event.position + 'px',
               width: event.width + 'px',
@@ -50,7 +50,7 @@
             <div
               :id="`event-cell-${i}-${event.id}`"
               :title="getEventTooltip(event)"
-              class="cell"
+              :class="`cell ${selected === event.id ? 'selected' : ''}`"
             >
               {{ `${event.name}` }}
             </div>
@@ -539,7 +539,7 @@ export default {
   padding-bottom: 8px;
 }
 
-.scheduler-container .events .selected {
+.scheduler-container .events .event .selected {
   background-color: rgb(200, 240, 220);
   z-index: 1;
 }
