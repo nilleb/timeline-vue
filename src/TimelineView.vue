@@ -136,14 +136,12 @@ export default {
       const eventStartDate = dayjs(event.startDate);
       const eventEndDate = dayjs(event.endDate);
       const parentElement = document.getElementById("scheduler-container");
-      const leftBorderDistance = Math.abs(
-        parentElement.scrollLeft + initialX - eventObject.position
-      );
-      const rightBorderDistance = Math.abs(
-        leftBorderDistance - eventObject.width
-      );
+      const rectangle = parentElement.getBoundingClientRect();
+      const clickPosition = parentElement.scrollLeft + initialX;
+      const leftBorderDistance = Math.abs(clickPosition - (rectangle.left + eventObject.position));
+      const rightBorderDistance = Math.abs(clickPosition - (rectangle.left + eventObject.position + eventObject.width));
       const what =
-        leftBorderDistance < 16
+        leftBorderDistance < 8
           ? "left"
           : rightBorderDistance < 8
           ? "right"
