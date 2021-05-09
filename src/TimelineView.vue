@@ -1,6 +1,6 @@
 <template>
   <div class="vue-scheduler">
-    <div class="scheduler-container">
+    <div id="scheduler-container" class="scheduler-container">
       <div
         class="timeline"
         :style="{ width: timelineWidth + 'px', height: timelineHeight + 'px' }"
@@ -135,7 +135,10 @@ export default {
       const event = this.events.find((event) => event.id == eventObject.id);
       const eventStartDate = dayjs(event.startDate);
       const eventEndDate = dayjs(event.endDate);
-      const leftBorderDistance = Math.abs(initialX - eventObject.position);
+      const parentElement = document.getElementById("scheduler-container");
+      const leftBorderDistance = Math.abs(
+        parentElement.scrollLeft + initialX - eventObject.position
+      );
       const rightBorderDistance = Math.abs(
         leftBorderDistance - eventObject.width
       );
@@ -279,7 +282,8 @@ export default {
         const workDate = this.limit(evaluatedDate);
         return (
           fixedMarginLeft +
-          (workDate.week() - this.beginningOfPeriod.week()) * this.timelineSlotWidth +
+          (workDate.week() - this.beginningOfPeriod.week()) *
+            this.timelineSlotWidth +
           (workDate.weekday() * this.timelineSlotWidth) / 7
         );
       } else if (period == "week") {
