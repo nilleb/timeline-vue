@@ -50,13 +50,7 @@
             <div
               :id="`event-cell-${i}-${event.id}`"
               :title="getEventTooltip(event)"
-              :style="{
-                width: '100%',
-                cursor: 'move',
-                backgroundColor: 'white',
-                paddingTop: '8px',
-                paddingBottom: '8px',
-              }"
+              class="cell"
             >
               {{ `${event.name}` }}
             </div>
@@ -527,6 +521,14 @@ export default {
   text-overflow: ellipsis;
   white-space: nowrap;
   z-index: 0;
+}
+
+.scheduler-container .events .event .cell {
+  width: 100%;
+  cursor: move;
+  background-color: white;
+  padding-top: 8px;
+  padding-bottom: 8px;
 }
 
 .scheduler-container .events .selected {
