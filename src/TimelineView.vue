@@ -153,7 +153,6 @@ export default {
           : rightBorderDistance < 8
           ? "right"
           : "both";
-      console.log(leftBorderDistance, rightBorderDistance, what);
       const that = this;
       const dragTo = function (moveEvent) {
         const gap = moveEvent.clientX - initialX;
