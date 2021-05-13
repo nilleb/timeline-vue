@@ -118,7 +118,6 @@ export default {
   data() {
     return {
       timelineSlotWidth: 100,
-      nowMarkerPosition: 0,
       selectedSlots: [],
     };
   },
@@ -298,9 +297,6 @@ export default {
         );
       }
     },
-    computeNowMarkerPosition() {
-      return this.computePosition(dayjs());
-    },
     followingMonday(day) {
       return day.add(7 - day.day() + 1, "day");
     },
@@ -330,6 +326,9 @@ export default {
         : this.periodName === "week"
         ? "Day"
         : "Hour";
+    },
+    nowMarkerPosition() {
+      return this.computePosition(dayjs());
     },
     beginningOfPeriod: function () {
       let now = dayjs();
@@ -418,7 +417,6 @@ export default {
   mounted() {
     this.selectedSlots = this.retrieveFromLocalStorage("selectedSlots") || [];
     this.timelineSlotWidth = 100;
-    this.nowMarkerPosition = this.computeNowMarkerPosition();
   },
 };
 </script>
