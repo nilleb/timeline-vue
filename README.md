@@ -24,6 +24,7 @@ export default {
       return { 
           events: [
               {
+                  id: "1one",
                   name: 'event',
                   startDate: "Mon April 19th, 2021",
                   endDate: "Fri April 23rd, 2021",
@@ -43,6 +44,10 @@ export default {
     :attributeName="attributeName"
 />
 ```
+
+### notes
+
+In order to enable drag & drop, the events shall have an `id`.
 
 ## Contribute
 

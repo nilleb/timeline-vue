@@ -132,6 +132,9 @@ export default {
     },
     dragElement(initialX, eventObject) {
       const event = this.events.find((event) => event.id == eventObject.id);
+      if (event === undefined) {
+        return null;
+      }
       const eventStartDate = dayjs(event.startDate);
       const eventEndDate = dayjs(event.endDate);
       const parentElement = document.getElementById("scheduler-container");
