@@ -149,12 +149,16 @@ export default Vue.extend({
 
 <template>
   <div id="app">
+    <h1>Timeline view (per developer)</h1>
     <ul style="list-style-type: none">
       <li v-for="event in events" :key="event.id">
         {{ event.name }} - {{ event.startDate }} - {{ event.endDate }}
       </li>
     </ul>
-    <h1>Timeline view (per developer)</h1>
+    <p style="margin: 50px 0px;">
+      Drag the items on the timeline below 👇 to see how the properties of the
+      elements above ☝️ evolve.
+    </p>
     <timeline-vue
       :period="'Quarter'"
       :events="events"
