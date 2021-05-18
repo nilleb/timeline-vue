@@ -22,7 +22,7 @@
         </div>
       </div>
 
-      <div class="resources">
+      <div class="resources" v-if="attributeName">
         <div
           class="resource-row"
           v-for="(resource, i) in resourceLines"
@@ -140,8 +140,13 @@ export default {
       const parentElement = document.getElementById("scheduler-container");
       const rectangle = parentElement.getBoundingClientRect();
       const clickPosition = parentElement.scrollLeft + initialX;
-      const leftBorderDistance = Math.abs(clickPosition - (rectangle.left + eventObject.position));
-      const rightBorderDistance = Math.abs(clickPosition - (rectangle.left + eventObject.position + eventObject.width));
+      const leftBorderDistance = Math.abs(
+        clickPosition - (rectangle.left + eventObject.position)
+      );
+      const rightBorderDistance = Math.abs(
+        clickPosition -
+          (rectangle.left + eventObject.position + eventObject.width)
+      );
       const what =
         leftBorderDistance < 8
           ? "left"
