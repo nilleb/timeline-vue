@@ -1,5 +1,11 @@
 <template>
   <div class="vue-scheduler">
+    <h3 class="header" style="text-align: left;">
+      <span class="date">{{ getSelectedTimeslot() }}</span>
+      <span class="nav" @click="onSelectPrevTimeslot">&lt;</span>
+      <span class="nav" @click="onSelectNextTimeslot">&gt;</span>
+    </h3>
+
     <div id="scheduler-container" class="scheduler-container">
       <div
         class="timeline"
@@ -76,6 +82,8 @@ var weekday = require("dayjs/plugin/weekday");
 dayjs.extend(weekday);
 var quarterOfYear = require("dayjs/plugin/quarterOfYear");
 dayjs.extend(quarterOfYear);
+var localizedFormat = require('dayjs/plugin/localizedFormat')
+dayjs.extend(localizedFormat)
 
 function isIterable(obj) {
   if (obj == null) {
@@ -119,9 +127,26 @@ export default {
     return {
       timelineSlotWidth: 100,
       selectedSlots: [],
+      selectedTimeslot: dayjs(),
     };
   },
   methods: {
+    getSelectedTimeslot() {
+      console.log(this.selectedTimeslot);
+      if (this.periodName === "quarter") {
+        return `Q${this.selectedTimeslot.quarter()}, ${this.selectedTimeslot.year()}`;
+      } else if (this.periodName === "week") {
+        return `Week ${this.selectedTimeslot.week()}, ${this.selectedTimeslot.year()}`;
+      } else if (this.periodName === 'day') {
+        return `${this.selectedTimeslot.format('LL')}`
+      }
+    },
+    onSelectPrevTimeslot() {
+      this.selectedTimeslot = this.selectedTimeslot.add(-1, this.periodName);
+    },
+    onSelectNextTimeslot() {
+      this.selectedTimeslot = this.selectedTimeslot.add(1, this.periodName);
+    },
     attachDrag(eventObject, mouseDownEvent) {
       mouseDownEvent.preventDefault();
       document.onmouseup = this.detachDrag(eventObject.id);
@@ -245,7 +270,9 @@ export default {
 
         if (isIterable(value) && typeof value !== "string") {
           if (value.length == 0) {
-            console.log(`⚠️ the item ${a.name} has no value`);
+            console.log(
+              `⚠️ the item ${a.name} (${a.id}) has no value for the property '${this.attributeName}'`
+            );
             value.push("non assigned");
           }
         } else {
@@ -430,6 +457,28 @@ export default {
 </script>
 
 <style scoped>
+.header {
+  margin: 0 0 10px;
+  color: #555;
+}
+.header .date {
+  margin-right: 16px;
+  color: #555;
+  font-weight: 900;
+  font-size: 18px;
+}
+.header .nav {
+  font-size: 16px;
+  display: inline-block;
+  padding: 0 5px;
+  border-radius: 1px;
+  font-weight: 700;
+  cursor: pointer;
+  background: #efefef;
+  color: #555;
+  margin-right: 5px;
+  border-radius: 5px;
+}
 .scheduler-container {
   width: 100%;
   border: 1px solid #ccc;
