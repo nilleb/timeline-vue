@@ -366,7 +366,7 @@ export default {
       return this.computePosition(dayjs());
     },
     beginningOfPeriod: function () {
-      let now = dayjs();
+      let now = this.selectedTimeslot;
       if (this.periodName === "quarter") {
         now = this.followingMonday(now.startOf("quarter"));
       } else if (this.periodName === "week") {
@@ -377,7 +377,7 @@ export default {
       return now;
     },
     endOfPeriod: function () {
-      let now = dayjs();
+      let now = this.selectedTimeslot;
       if (this.periodName === "quarter") {
         now = this.followingSunday(now.endOf("quarter"));
       } else if (this.periodName === "week") {
