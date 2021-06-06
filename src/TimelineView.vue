@@ -271,7 +271,7 @@ export default {
         if (isIterable(value) && typeof value !== "string") {
           if (value.length == 0) {
             console.log(
-              `⚠️ the item ${a.name} (${a.id}) has no value for the property '${this.attributeName}'`
+              `⚠️ the item ${a.name} (${a.id}) has no value for the property '${that.attributeName}'`
             );
             value.push("non assigned");
           }
