@@ -143,9 +143,11 @@ export default {
     },
     onSelectPrevTimeslot() {
       this.selectedTimeslot = this.selectedTimeslot.add(-1, this.periodName);
+      this.$emit('currentTimeslotChanged', this.selectedTimeslot);
     },
     onSelectNextTimeslot() {
       this.selectedTimeslot = this.selectedTimeslot.add(1, this.periodName);
+      this.$emit('currentTimeslotChanged', this.selectedTimeslot);
     },
     attachDrag(eventObject, mouseDownEvent) {
       mouseDownEvent.preventDefault();
