@@ -62,3 +62,7 @@ To build the minified version of the package.
 ```sh
 yarn build
 ```
+
+## Inspiration
+
+The style and the initial concept come from https://github.com/craigdanj/vue-day-schedule.
